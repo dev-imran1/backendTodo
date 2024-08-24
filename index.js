@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const app = express();
-const todoSchema = require("./model/todoSchema")
+const todoSchema = require("./model/todoSchema");
+const secureApi = require("./middleware/secureApi");
 
 // VtHsYyfldMiHdVfM
 // problem
@@ -23,12 +24,9 @@ mongoose.connect('mongodb+srv://problem:VtHsYyfldMiHdVfM@cluster0.jj1gxts.mongod
   })
 
 
-//   app.get("", async function (req,res)=>{
-//     console.log(res)
-//   })
 
+  app.get('/api/v1/todo/alldata', secureApi,async (req, res)=>{
 
-  app.get('/api/v1/todo/alldata',async(req, res) => {
     let data = await todoSchema.find()
     res.send(data);
   });
@@ -37,9 +35,5 @@ app.listen(8000, ()=>{
     console.log("connected port")
 })
 
-
-// hOWeXHgkPoEDUoLl
-// problem
-// mongodb+srv://problem:hOWeXHgkPoEDUoLl@cluster0.vchy7fz.mongodb.net/todo?retryWrites=true&w=majority&appName=Cluster0
 
 
